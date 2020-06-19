@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b56b801a686b40f5a260f548092c3e2e" Name="Diagram1">
+        <EntityTypeShape EntityType="LibraryModel.Book" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.BookLocation" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.Genre" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.Rent" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.Section" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.StatusBook" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.Tenant" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <AssociationConnector Association="LibraryModel.FK__Book__FK_BookLoc__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryModel.FK__Book__FK_GENRE__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryModel.FK__Book__FK_RentID__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryModel.FK__Book__FK_Section__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryModel.FK__Book__FK_StatusI__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryModel.FK__Rent__FK_Tenant__534D60F1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

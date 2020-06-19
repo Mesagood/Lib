@@ -1,0 +1,32 @@
+﻿<Window x:Class="Library.ReaderList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Library"
+        mc:Ignorable="d"
+        Title="Читатели" Height="450" Width="800">
+    <Grid RenderTransformOrigin="0.502,0.862">
+        <DataGrid x:Name="TenantGrid" AutoGenerateColumns="False" SelectionChanged="TenantGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="TGFirstName" Binding="{Binding FirstName}" Header="Фамилия" Width="100"/>
+                <DataGridTextColumn x:Name="TGLastName" Binding="{Binding LastName}" Header="Имя" Width="100"/>
+                <DataGridTextColumn x:Name="TGMiddleName" Binding="{Binding MiddleName}" Header="Отчество" Width="100"/>
+                <DataGridTextColumn x:Name="TGPhoneNumber" Binding="{Binding PhoneNumber}" Header="Номер телефона" Width="150"/>
+                <DataGridTextColumn x:Name="TGLibraryCard" Binding="{Binding LibraryCard}" Header="Номер читательского билета" Width="400"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Создать новый читательский билет" Grid.Row="1" Margin="32,10,541,22" Click="CreateClick"/>
+        <Button Content="Удалить читателський билет" Grid.Row="1" Margin="305,10,287,22" Click="EditClick"/>
+        <Button Content="Вернуться на главную" Grid.Row="1" Click="Back" Margin="611,10,39,22"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="348*"/>
+            <RowDefinition Height="71*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+
+    </Grid>
+</Window>

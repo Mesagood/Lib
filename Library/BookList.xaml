@@ -1,0 +1,36 @@
+﻿<Window x:Class="Library.BookList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Library"
+        mc:Ignorable="d"
+        Title="Книги" Height="450" Width="800">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="345*"/>
+            <RowDefinition Height="74*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+            <Button Content=" Главная " Grid.Row="1" Click="ExitClick" Height="50" Margin="5"/>
+            <Button Content=" Новая книга " Grid.Row="1" Click="NewBookClick" Height="50" Margin="5"/>
+            <Button Content=" Выдать книгу " Grid.Row="1" Click="RentBookClick" Height="50" Margin="5"/>
+        </StackPanel>
+
+        <DataGrid x:Name="BookGrid" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="BKBookname" Binding="{Binding BookName}" Header="Название книги" Width="100"/>
+                <DataGridTextColumn x:Name="BKAutor" Binding="{Binding Autor}" Header="Автор" Width="100"/>
+                <DataGridTextColumn x:Name="BKGenre" Binding="{Binding Genre.NameOfGenre}" Header="Жанр" Width="100"/>
+                <DataGridTextColumn x:Name="BKSection" Binding="{Binding Section.SectionName}" Header="Раздел" Width="150"/>
+                <DataGridTextColumn x:Name="BKBookLocation" Binding="{Binding BookLocation.NameOfLocation}" Header="Месторасположение книги" Width="200"/>
+                <DataGridTextColumn x:Name="BkRent" Binding="{Binding StatusBook.NameStatus}" Header="Факт выдачи" Width="200"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

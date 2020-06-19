@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="BookID" />
+          </Key>
+          <Property Name="BookID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Autor" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FK_GENRE" Type="int" Nullable="false" />
+          <Property Name="FK_Section" Type="int" Nullable="false" />
+          <Property Name="FK_BookLocation" Type="int" Nullable="false" />
+          <Property Name="FK_RentID" Type="int" />
+          <Property Name="FK_StatusId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookLocation">
+          <Key>
+            <PropertyRef Name="BookLocationID" />
+          </Key>
+          <Property Name="BookLocationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameOfLocation" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="GenreID" />
+          </Key>
+          <Property Name="GenreID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameOfGenre" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rent">
+          <Key>
+            <PropertyRef Name="RentID" />
+          </Key>
+          <Property Name="RentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_Tenant" Type="int" Nullable="false" />
+          <Property Name="DateOfRent" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="SectionID" />
+          </Key>
+          <Property Name="SectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SectionName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StatusBook">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tenant">
+          <Key>
+            <PropertyRef Name="TenantID" />
+          </Key>
+          <Property Name="TenantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="LibraryCard" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Book__FK_BookLoc__5812160E">
+          <End Role="BookLocation" Type="Self.BookLocation" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookLocation">
+              <PropertyRef Name="BookLocationID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="FK_BookLocation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Book__FK_GENRE__5629CD9C">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="GenreID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="FK_GENRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Book__FK_RentID__59063A47">
+          <End Role="Rent" Type="Self.Rent" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rent">
+              <PropertyRef Name="RentID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="FK_RentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Book__FK_Section__571DF1D5">
+          <End Role="Section" Type="Self.Section" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="FK_Section" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Book__FK_StatusI__59FA5E80">
+          <End Role="StatusBook" Type="Self.StatusBook" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusBook">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="FK_StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rent__FK_Tenant__534D60F1">
+          <End Role="Tenant" Type="Self.Tenant" Multiplicity="1" />
+          <End Role="Rent" Type="Self.Rent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenant">
+              <PropertyRef Name="TenantID" />
+            </Principal>
+            <Dependent Role="Rent">
+              <PropertyRef Name="FK_Tenant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LibraryModelStoreContainer">
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookLocation" EntityType="Self.BookLocation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rent" EntityType="Self.Rent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusBook" EntityType="Self.StatusBook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tenant" EntityType="Self.Tenant" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Book__FK_BookLoc__5812160E" Association="Self.FK__Book__FK_BookLoc__5812160E">
+            <End Role="BookLocation" EntitySet="BookLocation" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Book__FK_GENRE__5629CD9C" Association="Self.FK__Book__FK_GENRE__5629CD9C">
+            <End Role="Genre" EntitySet="Genre" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Book__FK_RentID__59063A47" Association="Self.FK__Book__FK_RentID__59063A47">
+            <End Role="Rent" EntitySet="Rent" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Book__FK_Section__571DF1D5" Association="Self.FK__Book__FK_Section__571DF1D5">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Book__FK_StatusI__59FA5E80" Association="Self.FK__Book__FK_StatusI__59FA5E80">
+            <End Role="StatusBook" EntitySet="StatusBook" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rent__FK_Tenant__534D60F1" Association="Self.FK__Rent__FK_Tenant__534D60F1">
+            <End Role="Tenant" EntitySet="Tenant" />
+            <End Role="Rent" EntitySet="Rent" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="BookID" />
+          </Key>
+          <Property Name="BookID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Autor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FK_GENRE" Type="Int32" Nullable="false" />
+          <Property Name="FK_Section" Type="Int32" Nullable="false" />
+          <Property Name="FK_BookLocation" Type="Int32" Nullable="false" />
+          <Property Name="FK_RentID" Type="Int32" />
+          <Property Name="FK_StatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BookLocation" Relationship="Self.FK__Book__FK_BookLoc__5812160E" FromRole="Book" ToRole="BookLocation" />
+          <NavigationProperty Name="Genre" Relationship="Self.FK__Book__FK_GENRE__5629CD9C" FromRole="Book" ToRole="Genre" />
+          <NavigationProperty Name="Rent" Relationship="Self.FK__Book__FK_RentID__59063A47" FromRole="Book" ToRole="Rent" />
+          <NavigationProperty Name="Section" Relationship="Self.FK__Book__FK_Section__571DF1D5" FromRole="Book" ToRole="Section" />
+          <NavigationProperty Name="StatusBook" Relationship="Self.FK__Book__FK_StatusI__59FA5E80" FromRole="Book" ToRole="StatusBook" />
+        </EntityType>
+        <EntityType Name="BookLocation">
+          <Key>
+            <PropertyRef Name="BookLocationID" />
+          </Key>
+          <Property Name="BookLocationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameOfLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.FK__Book__FK_BookLoc__5812160E" FromRole="BookLocation" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="GenreID" />
+          </Key>
+          <Property Name="GenreID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameOfGenre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.FK__Book__FK_GENRE__5629CD9C" FromRole="Genre" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="Rent">
+          <Key>
+            <PropertyRef Name="RentID" />
+          </Key>
+          <Property Name="RentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_Tenant" Type="Int32" Nullable="false" />
+          <Property Name="DateOfRent" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Books" Relationship="Self.FK__Book__FK_RentID__59063A47" FromRole="Rent" ToRole="Book" />
+          <NavigationProperty Name="Tenant" Relationship="Self.FK__Rent__FK_Tenant__534D60F1" FromRole="Rent" ToRole="Tenant" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="SectionID" />
+          </Key>
+          <Property Name="SectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SectionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.FK__Book__FK_Section__571DF1D5" FromRole="Section" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="StatusBook">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="Self.FK__Book__FK_StatusI__59FA5E80" FromRole="StatusBook" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="Tenant">
+          <Key>
+            <PropertyRef Name="TenantID" />
+          </Key>
+          <Property Name="TenantID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LibraryCard" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Rents" Relationship="Self.FK__Rent__FK_Tenant__534D60F1" FromRole="Tenant" ToRole="Rent" />
+        </EntityType>
+        <Association Name="FK__Book__FK_BookLoc__5812160E">
+          <End Role="BookLocation" Type="Self.BookLocation" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookLocation">
+              <PropertyRef Name="BookLocationID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="FK_BookLocation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Book__FK_GENRE__5629CD9C">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="GenreID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="FK_GENRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Book__FK_RentID__59063A47">
+          <End Role="Rent" Type="Self.Rent" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rent">
+              <PropertyRef Name="RentID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="FK_RentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Book__FK_Section__571DF1D5">
+          <End Role="Section" Type="Self.Section" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="FK_Section" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Book__FK_StatusI__59FA5E80">
+          <End Role="StatusBook" Type="Self.StatusBook" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusBook">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="FK_StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rent__FK_Tenant__534D60F1">
+          <End Role="Tenant" Type="Self.Tenant" Multiplicity="1" />
+          <End Role="Rent" Type="Self.Rent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenant">
+              <PropertyRef Name="TenantID" />
+            </Principal>
+            <Dependent Role="Rent">
+              <PropertyRef Name="FK_Tenant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LibraryEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="BookLocations" EntityType="Self.BookLocation" />
+          <EntitySet Name="Genres" EntityType="Self.Genre" />
+          <EntitySet Name="Rents" EntityType="Self.Rent" />
+          <EntitySet Name="Sections" EntityType="Self.Section" />
+          <EntitySet Name="StatusBooks" EntityType="Self.StatusBook" />
+          <EntitySet Name="Tenants" EntityType="Self.Tenant" />
+          <AssociationSet Name="FK__Book__FK_BookLoc__5812160E" Association="Self.FK__Book__FK_BookLoc__5812160E">
+            <End Role="BookLocation" EntitySet="BookLocations" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Book__FK_GENRE__5629CD9C" Association="Self.FK__Book__FK_GENRE__5629CD9C">
+            <End Role="Genre" EntitySet="Genres" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Book__FK_RentID__59063A47" Association="Self.FK__Book__FK_RentID__59063A47">
+            <End Role="Rent" EntitySet="Rents" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Book__FK_Section__571DF1D5" Association="Self.FK__Book__FK_Section__571DF1D5">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Book__FK_StatusI__59FA5E80" Association="Self.FK__Book__FK_StatusI__59FA5E80">
+            <End Role="StatusBook" EntitySet="StatusBooks" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rent__FK_Tenant__534D60F1" Association="Self.FK__Rent__FK_Tenant__534D60F1">
+            <End Role="Tenant" EntitySet="Tenants" />
+            <End Role="Rent" EntitySet="Rents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LibraryModelStoreContainer" CdmEntityContainer="LibraryEntities1">
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="LibraryModel.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="Autor" ColumnName="Autor" />
+                <ScalarProperty Name="FK_GENRE" ColumnName="FK_GENRE" />
+                <ScalarProperty Name="FK_Section" ColumnName="FK_Section" />
+                <ScalarProperty Name="FK_BookLocation" ColumnName="FK_BookLocation" />
+                <ScalarProperty Name="FK_RentID" ColumnName="FK_RentID" />
+                <ScalarProperty Name="FK_StatusId" ColumnName="FK_StatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookLocations">
+            <EntityTypeMapping TypeName="LibraryModel.BookLocation">
+              <MappingFragment StoreEntitySet="BookLocation">
+                <ScalarProperty Name="BookLocationID" ColumnName="BookLocationID" />
+                <ScalarProperty Name="NameOfLocation" ColumnName="NameOfLocation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genres">
+            <EntityTypeMapping TypeName="LibraryModel.Genre">
+              <MappingFragment StoreEntitySet="Genre">
+                <ScalarProperty Name="GenreID" ColumnName="GenreID" />
+                <ScalarProperty Name="NameOfGenre" ColumnName="NameOfGenre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rents">
+            <EntityTypeMapping TypeName="LibraryModel.Rent">
+              <MappingFragment StoreEntitySet="Rent">
+                <ScalarProperty Name="RentID" ColumnName="RentID" />
+                <ScalarProperty Name="FK_Tenant" ColumnName="FK_Tenant" />
+                <ScalarProperty Name="DateOfRent" ColumnName="DateOfRent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sections">
+            <EntityTypeMapping TypeName="LibraryModel.Section">
+              <MappingFragment StoreEntitySet="Section">
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+                <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusBooks">
+            <EntityTypeMapping TypeName="LibraryModel.StatusBook">
+              <MappingFragment StoreEntitySet="StatusBook">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="NameStatus" ColumnName="NameStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tenants">
+            <EntityTypeMapping TypeName="LibraryModel.Tenant">
+              <MappingFragment StoreEntitySet="Tenant">
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="LibraryCard" ColumnName="LibraryCard" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
